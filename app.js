@@ -1,17 +1,28 @@
 var express = require('express');
+var exphbs = require('express-handlebars');
 var path = require('path');
+var methodOverride = require('method-override');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var router = require('./routes/routes');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs.create({
+    defaultLayout: 'main',
+    layoutsDir: app.get('views') + '/layouts',
+    partialsDir: app.get('views') + '/partials',
+    helpers: {
+        timeago: function(timestamp){
+            return moment(timestamp).startOf('minute').fromNow();
+        }
+    }
+}).engine);
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
@@ -21,9 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
+app.use(methodOverride());
+app.use(router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,6 +65,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 
 
 module.exports = app;
