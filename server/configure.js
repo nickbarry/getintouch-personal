@@ -5,7 +5,7 @@ var path = require('path'),
     express = require('express'),
     exphbs = require('express-handlebars'),
     methodOverride = require('method-override'),
-    routes = require('./routes'),
+    routes = require('./../routes/routes'),
     moment = require('moment');
 
 module.exports = function(app){
