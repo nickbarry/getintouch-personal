@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('express-generator-structure:server');
 var http = require('http');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -20,12 +20,12 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-mongoose.connect('mongodb://localhost/getintouch');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.on('open', function(){
-  console.log('Mongoose connected.');
-});
+//mongoose.connect('mongodb://localhost/getintouch');
+//var db = mongoose.connection;
+//db.on('error', console.error.bind(console, 'connection error:'));
+//db.on('open', function(){
+//  console.log('Mongoose connected.');
+//});
 
 var server = http.createServer(app);
 
