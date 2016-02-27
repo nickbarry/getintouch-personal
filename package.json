@@ -31,6 +31,7 @@
     "hbs": "~3.1.0",
     "method-override": "^2.3.5",
     "moment": "*",
+    "mongodb": "*",
     "mongoose": "^4.4.4",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
