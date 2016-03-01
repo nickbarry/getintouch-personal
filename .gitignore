@@ -1,5 +1,5 @@
 # Environment variables, secret values, etc.
-config.js
+configUntracked.js
 
 # Workspace files
 .idea/workspace.xml
