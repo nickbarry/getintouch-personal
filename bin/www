@@ -4,20 +4,15 @@
 var app = require('../app');
 var debug = require('debug')('express-generator-structure:server');
 var http = require('http');
-var mongoose = require('mongoose');
 var config = require('../configUntracked');
+var db = require('./lib/db');
 
 // Get port from environment and store in Express.
 var port = config.port;
 app.set('port', port);
 
-// Set up database connection with Mongoose
-mongoose.connect(config.mongoUrl);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.on('open', function(){
-  console.log('Mongoose connected.');
-});
+// Set up database connection
+db.connect();
 
 // Create HTTP server.
 var server = http.createServer(app);

@@ -13,4 +13,7 @@ router.get('/contact/:contact_id', function(req,res){
     res.send('Hello world!')
 });
 
+// static middleware after the routes
+router.use(express.static(__dirname + '/public'));
+
 module.exports = router;
