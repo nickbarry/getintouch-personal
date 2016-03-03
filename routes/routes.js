@@ -1,8 +1,9 @@
-/**
- * Created by Nicholas Barry on 2/17/2016.
- */
 var express = require('express');
 var router = express.Router();
+var main = require('./main');
+var contacts = require('./contacts');
+var sessions = require('./sessions');
+
 //var home = require('../controllers/home');// todo: haven't created yet
 //var contact = require('../controllers/contact');// todo: haven't created yet
 
