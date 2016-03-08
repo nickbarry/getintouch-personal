@@ -40,7 +40,7 @@ module.exports = {
             if(err){return next(err);}
 
             req.flash('info', 'Contact successfully created!');
-            res.redirect('/contact/' + contact.urlName); // TODO: need to create that property
+            res.redirect('/contact/' + contact.id); // TODO: need to create that property
         });
     }
 };

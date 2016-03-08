@@ -38,6 +38,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride(function(req, res){
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // TODO: For the corresponding html, see the textbook note
+        // here (see the section on Views):
+        // and their explanation: "An interesting detail in the preceding
+        // code is that we override the method interpreted on the server
+        // side from POST to DELETE by passing a hidden field called _method.
+        // This functionality is provided by the methodOverride middleware
+        // of Express, which we included in the app.js file.".
+
         // look in url - encoded POST bodies and delete it
         var method = req.body._method;
         delete req.body._method;
