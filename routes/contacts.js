@@ -15,7 +15,18 @@ module.exports = {
         //});
     },
     elyse: function(req,res,next){
-        res.send('Elyse Green');
+        var elyse = new Contact({
+            firstName: "Elyse",
+            lastName: "Green",
+            phone1: "1234567890",
+            email: "test@elyse.com",
+            address: "Candyland, USA",
+        });
+
+        elyse.save(function(err, elyse){
+            if(err) return console.error(err);
+            res.json({"full name": elyse.fullName()});
+        });
     },
     show: function(req,res,next){
         var contact = new Contact(req.params.contact);
