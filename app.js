@@ -74,6 +74,9 @@ app.use(function(req, res, next) {
 // development error handler
 if(app.get('env') === 'development'){
     app.use(errorHandler());
+    // Here's a useful way of setting up special middleware depending on
+    // the environment:
+    // https://www.packtpub.com/packtlib/book/Web%20Development/9781783981083/2/ch02lvl1sec17/Environment-based%20loading%20of%20middleware
 }
 // will print stacktrace
 //if (app.get('env') === 'development') {
