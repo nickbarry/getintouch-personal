@@ -2,7 +2,7 @@ var Contact = require('../models/contact');
 
 module.exports = {
     index: function(req,res,next){
-        res.send('Hello world!');
+        res.json({"message": "Hello, World!"});
 
         //Contact.getByPriority(function(err, contacts){
         //    if(err) {return next(err);}
@@ -13,6 +13,9 @@ module.exports = {
         //        error: req.flash('error')[0]
         //    });
         //});
+    },
+    elyse: function(req,res,next){
+        res.send('Elyse Green');
     },
     show: function(req,res,next){
         var contact = new Contact(req.params.contact);
