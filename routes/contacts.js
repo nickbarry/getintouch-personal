@@ -2,15 +2,17 @@ var Contact = require('../models/contact');
 
 module.exports = {
     index: function(req,res,next){
-        Contact.getByPriority(function(err, contacts){
-            if(err) {return next(err);}
+        res.send('Hello world!');
 
-            res.render('contacts/index', {
-                contacts: contacts,
-                info: req.flash('info')[0],
-                error: req.flash('error')[0]
-            });
-        });
+        //Contact.getByPriority(function(err, contacts){
+        //    if(err) {return next(err);}
+        //
+        //    res.render('contacts/index', {
+        //        contacts: contacts,
+        //        info: req.flash('info')[0],
+        //        error: req.flash('error')[0]
+        //    });
+        //});
     },
     show: function(req,res,next){
         var contact = new Contact(req.params.contact);
