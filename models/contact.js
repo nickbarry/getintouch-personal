@@ -17,4 +17,4 @@ var Contact = new mongoose.Schema({
     contactFrequency: {type: Number, default: 0}
 });
 
-module.exports = File;
+module.exports = Contact;
