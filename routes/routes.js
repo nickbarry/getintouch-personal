@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var main = require('./main');
+//var main = require('./main');
 var contacts = require('./contacts');
 //var sessions = require('./sessions');
 
