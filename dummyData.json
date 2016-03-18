@@ -1,0 +1,30 @@
+[
+  {
+  "firstName": "Elyse",
+  "lastName": "Green",
+  "phone1": "123 456 7890",
+  "email": "test@elyse.com",
+  "address": "Berkeley, CA",
+  "notes": "Soon to be my wife!",
+  "contactFrequency": 1
+  },
+  {
+    "firstName": "Matt",
+    "lastName": "Valdin",
+    "phone1": "567898765",
+    "email": "neveranswers@gmail.com",
+    "address": "Our house, Berkeley, CA",
+    "notes": "Sick dodgeballer",
+    "contactFrequency": 2
+  },
+  {
+    "firstName": "Christine",
+    "lastName": "Feaster",
+    "phone1": "oh you wish you knew",
+    "phoneOthers": "",
+    "email": "christine@stem.com",
+    "address": "San Francostly, CA",
+    "notes": "Like Female Indiana Jones",
+    "contactFrequency": 3
+  }
+]
