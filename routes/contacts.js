@@ -1,8 +1,9 @@
 var Contact = require('../models/contact');
+var dummyData = require('../dummyData.json');
 
 module.exports = {
     index: function(req,res,next){
-        res.json({"message": "Hello, World!"});
+        res.render('index', dummyData);
 
         //Contact.getByPriority(function(err, contacts){
         //    if(err) {return next(err);}
