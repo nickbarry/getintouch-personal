@@ -2,5 +2,7 @@
 <ul>
     {{#each this}}
         <li>{{name.first}} {{name.last}}</li>
+    {{else}}
+        <li>No matching contacts!</li> <!-- TODO: "Would you like to create a new contact?" -->
     {{/each}}
 </ul>
