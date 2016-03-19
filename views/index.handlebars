@@ -1,8 +1,23 @@
 <h1>Follow up with these folks</h1>
-<ul>
-    {{#each this}}
-        <li>{{name.first}} {{name.last}}</li>
-    {{else}}
-        <li>No matching contacts!</li> <!-- TODO: "Would you like to create a new contact?" -->
-    {{/each}}
-</ul>
+{{#each this}}
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            {{name.first}} {{name.last}}
+        </h3></div>
+        <div class="panel-body">
+            <p>Phone: {{phone1}}</p>
+            <p>Email: {{email}}</p>
+            <p>Last Contacted: {{lastContacted}}</p>
+        </div>
+    </div>
+{{else}}
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            No Matching Contacts
+        </h3></div>
+        <div class="panel-body">
+            <p>There were no matching contacts.</p>
+            <!-- TODO: "Would you like to create a new contact?" -->
+        </div>
+    </div>
+{{/each}}
