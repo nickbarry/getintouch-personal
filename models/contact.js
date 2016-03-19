@@ -7,15 +7,23 @@ function validateField(string){
 }
 
 var contactSchema = mongoose.Schema({
-    firstName: {type: String},
-    lastName: {type: String},
-    phone1: {type: String},
-    phoneOthers: {type: String, default: ""}, //TODO: Maybe store this as an Array? or just convert as necessary?
-    email: {type: String},
-    address: {type: String},
-    notes: {type: String},
-    lastContact: {type: Date},
-    contactFrequency: {type: Number, default: 0}
+    // I can generate dummy data from this template I put together:
+    // http://beta.json-generator.com/4kzsToHpl
+    name: {
+        firstName: String,
+        middleName: String, // usually omitted
+        lastName: String
+    },
+    phone1: String,
+    phoneOthers: String, //TODO: Maybe store this as an Array? or just convert as necessary?
+    email: String,
+    near: String,
+    notes: String,
+    lastContacted: Date,
+    contactFrequency: {type: Number, default: 0}, // # days after which I should contact again
+    contactNext: Date, // TODO: Should I replace this with a virtual property?
+    priority: Number,
+    isActive: Boolean
 });
 
 contactSchema.methods.fullName = function(){
