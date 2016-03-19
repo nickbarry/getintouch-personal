@@ -2,7 +2,8 @@
 {{#each this}}
     <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">
-            {{name.first}} {{name.last}}
+            {{name.first}} {{name.last}} <span class="pull-right"><a href="#">Edit</a></span>
+            <!-- TODO: Need to create Edit link functionality-->
         </h3></div>
         <div class="panel-body">
             <p>Phone: {{phone1}}</p>
@@ -16,8 +17,8 @@
             No Matching Contacts
         </h3></div>
         <div class="panel-body">
-            <p>There were no matching contacts.</p>
-            <!-- TODO: "Would you like to create a new contact?" -->
+            <p>There were no matching contacts. Would you like to <a href="#">create a new contact?</a></p>
+            <!-- TODO: "create a new contact" link functionality -->
         </div>
     </div>
 {{/each}}
