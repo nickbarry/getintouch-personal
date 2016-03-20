@@ -1,24 +1,30 @@
 <h1>Follow up with these folks</h1>
-{{#each this}}
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">
-            {{name.first}} {{name.last}} <span class="pull-right"><a href="#">Edit</a></span>
-            <!-- TODO: Need to create Edit link functionality-->
-        </h3></div>
-        <div class="panel-body">
-            <p>Phone: {{phone1}}</p>
-            <p>Email: {{email}}</p>
-            <p>Last Contacted: {{lastContacted}}</p>
+<div id="contact-cards-container">
+    {{#each this}}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">
+                {{name.first}} {{name.last}} <span class="pull-right"><a href="#">Edit</a></span>
+                <!-- TODO: Need to create Edit link functionality-->
+            </h3></div>
+            <div class="panel-body">
+                <p>Phone: {{phone1}}</p>
+                <p>Email: {{email}}</p>
+                <p>Last Contacted: {{lastContacted}} <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
+                <div class="hidden details">
+                    <hr>
+                    <p><strong>Notes:</strong> {{notes}}</p>
+                </div>
+            </div>
         </div>
-    </div>
-{{else}}
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">
-            No Matching Contacts
-        </h3></div>
-        <div class="panel-body">
-            <p>There were no matching contacts. Would you like to <a href="#">create a new contact?</a></p>
-            <!-- TODO: "create a new contact" link functionality -->
+    {{else}}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">
+                No Matching Contacts
+            </h3></div>
+            <div class="panel-body">
+                <p>There were no matching contacts. Would you like to <a href="#">create a new contact?</a></p>
+                <!-- TODO: "create a new contact" link functionality -->
+            </div>
         </div>
-    </div>
-{{/each}}
+    {{/each}}
+</div>
