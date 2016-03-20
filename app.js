@@ -2,7 +2,6 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var morgan = require('morgan');
 var flash = require('connect-flash');
-var path = require('path');
 var methodOverride = require('method-override');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
@@ -30,12 +29,12 @@ app.engine('handlebars', exphbs.create({
 app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(__dirname, 'public', '/favicon.ico'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); // TODO: I don't think this is working
+app.use(express.static(__dirname + 'public'));
 app.use(methodOverride(function(req, res){
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
         // TODO: For the corresponding html, see the textbook note
