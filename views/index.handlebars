@@ -3,13 +3,13 @@
     {{#each this}}
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">
-                {{name.first}} {{name.last}} <span class="pull-right"><a href="#">Edit</a></span>
+                <strong>{{name.first}} {{name.last}}</strong> <span class="pull-right"><a href="#">Edit</a></span>
                 <!-- TODO: Need to create Edit link functionality-->
             </h3></div>
             <div class="panel-body">
-                <p>Phone: {{phone1}}</p>
-                <p>Email: {{email}}</p>
-                <p>Last Contacted: {{lastContacted}} <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
+                <p><strong>Phone:</strong> {{phone1}}</p>
+                <p><strong>Email:</strong> {{email}}</p>
+                <p><strong>Last Contacted:</strong> {{lastContacted}} <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
                 <div class="hidden details">
                     <hr>
                     <p><strong>Notes:</strong> {{notes}}</p>
