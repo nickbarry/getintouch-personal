@@ -32,7 +32,7 @@
     "errorhandler": "*",
     "express": "~4.13.1",
     "express-handlebars": "*",
-    "hbs": "~3.1.0",
+    "handlebars": "~4.0.5",
     "method-override": "^2.3.5",
     "moment": "*",
     "mongodb": "*",
