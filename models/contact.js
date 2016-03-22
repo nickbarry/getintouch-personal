@@ -22,6 +22,7 @@ var contactSchema = mongoose.Schema({
     lastContacted: Date,
     contactFrequency: {type: Number, default: 0}, // # days after which I should contact again
     contactNext: Date, // TODO: Should I replace this with a virtual property?
+    tags: Array,
     priority: Number,
     isActive: Boolean
 });
