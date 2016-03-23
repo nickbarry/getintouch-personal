@@ -20,7 +20,7 @@ var contactSchema = mongoose.Schema({
     near: String,
     notes: String,
     lastContacted: Date,
-    contactFrequency: {type: Number, default: 0}, // # days after which I should contact again
+    contactFrequency: {type: Number, default: 180}, // # days after which I should contact again
     contactNext: Date, // TODO: Should I replace this with a virtual property? Is there a
     // noticeable difference in the speed of searching for a lot of contacts according to
     // a real property, vs. a virtual property? I'll be searching for this property frequently
