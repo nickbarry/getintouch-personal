@@ -38,7 +38,6 @@
     "mongodb": "*",
     "mongoose": "^4.4.4",
     "morgan": "~1.6.1",
-    "multer": "*",
     "pwd": "*",
     "serve-favicon": "~2.3.0"
   },
