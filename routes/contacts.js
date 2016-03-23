@@ -50,11 +50,10 @@ module.exports = {
     //        res.redirect('/');
     //    });
     //},
-    showCreateNewForm: function(req,res,next){
+    showCreateNewForm: function(req,res){
         res.render('contacts/new', null);
     },
-    create: function(req,res,next){
-        console.log(req.body);
+    create: function(req,res){
         res.redirect('/contacts/new');
 
         // TODO with inputs:
