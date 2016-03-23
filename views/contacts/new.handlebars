@@ -1,0 +1,67 @@
+<div class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title">
+        Create a contact
+    </h3></div>
+    <div class="panel-body">
+        <form action="/contacts" method="post" class="form-horizontal" id="new-contact-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone1" class="col-sm-2 control-label">Phone</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="phone1" placeholder="Phone number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="near" class="col-sm-2 control-label">Near</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="near" placeholder="Location">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="notes" class="col-sm-2 control-label">Notes</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="notes" placeholder="Contact notes">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contactFrequency" class="col-sm-2 control-label">Contact frequency</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="contactFrequency" value="180">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="TODO" class="col-sm-2 control-label">TODO</label>
+                <div class="col-sm-10">
+                    <TODO type="TODO" class="form-control" id="TODO" placeholder="TODO">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
