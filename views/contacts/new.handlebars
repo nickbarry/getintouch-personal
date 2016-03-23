@@ -2,36 +2,36 @@
     <div class="panel-heading"><h3 class="panel-title">
         Create a contact
     </h3></div>
-    <div class="panel-body">
-        <form action="/contacts" method="post" class="form-horizontal" id="new-contact-form" enctype="multipart/form-data">
+    <div class="panel-body form-horizontal">
+        <form action="/contacts" method="post">
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" placeholder="Email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
             </div>
             <div class="form-group">
                 <label for="phone1" class="col-sm-2 control-label">Phone</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="phone1" placeholder="Phone number">
+                    <input type="text" class="form-control" id="phone1" name="phone1" placeholder="Phone number">
                 </div>
             </div>
             <div class="form-group">
                 <label for="near" class="col-sm-2 control-label">Near</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="near" placeholder="Location, e.g. CA:Bay:EB:Berkeley">
+                    <input type="text" class="form-control" id="near" name="near" placeholder="Location, e.g. CA:Bay:EB:Berkeley">
                 </div>
             </div>
             <div class="form-group">
                 <label for="notes" class="col-sm-2 control-label">Notes</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="notes" placeholder="Contact notes" rows="3"></textarea>
+                    <textarea class="form-control" id="notes" name="notes" placeholder="Contact notes" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -47,7 +47,7 @@
                         <input type="radio" name="priority" id="priority2" value="2"> 2
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="priority" id="priority3" value="3" selected="true"> 3
+                        <input type="radio" name="priority" id="priority3" value="3" checked="checked"> 3
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="priority" id="priority4" value="4"> 4
@@ -60,19 +60,19 @@
             <div class="form-group">
                 <label for="contactFrequency" class="col-sm-2 control-label">Contact frequency</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="contactFrequency" placeholder="Number of days, default 180">
+                    <input type="number" class="form-control" id="contactFrequency" name="contactFrequency" placeholder="Number of days, default 180">
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastContacted" class="col-sm-2 control-label">Last contacted</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="lastContacted">
+                    <input type="date" class="form-control" id="lastContacted" name="lastContacted">
                 </div>
             </div>
             <div class="form-group">
                 <label for="tags" class="col-sm-2 control-label">Tags</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tags" placeholder="Tags, separated by commas">
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags, separated by commas">
                 </div>
             </div>
             <div class="form-group">
