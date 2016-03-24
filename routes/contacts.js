@@ -55,8 +55,9 @@ module.exports = {
     },
     create: function(req,res){
         console.log('req.body: ',req.body);
-        var validatedBody = validateNewContact(req.body);
-        console.log('validatedBody: ',validatedBody);
+        var processedBody = processNewContact(req.body);
+        console.log('processedBody: ',processedBody);
+        console.log('req.body: ',req.body);
 
         res.redirect('/contacts/new');
 
@@ -79,18 +80,27 @@ module.exports = {
     }
 };
 
-function validateNewContact(body){
+function processNewContact(body){
     var bodyKeys = Object.keys(body),
-        validatedBody = bodyKeys.reduce(function(acc,key){
-            if(body[key] === ''){ // user didn't submit anything for this property
-                return acc;
-            }
-            acc[key] = body[key]; // set body property as corresponding property on obj we'll return
-            return acc;
-        },{});
-    return validatedBody
+        trimmedBody = bodyKeys.reduce(deleteEmptyStringProps,body);
+    //if(processedBody.nameFull){
+    //
+    //}
+    return trimmedBody;
 
     //function propertyChecker(property, value){
     //
     //}
 }
+
+// TODO: I'll probably want to put the functions below in a utilities function module
+function deleteEmptyStringProps(obj,key){
+    if(obj[key] === ''){ // user didn't submit anything for this property
+        delete obj[key];
+    }
+    return obj; // this function looks functional, but actually permanently deletes props from the original body
+    // object. At this point I don't care, and I get the benefit of a very concise function, but there are probably
+    // better ways to do it. Maybe I should create a clone of the body object before passing it to the deleteEmptyStringProps
+    // fn?
+}
+
