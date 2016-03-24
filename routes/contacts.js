@@ -54,9 +54,13 @@ module.exports = {
         res.render('contacts/new', null);
     },
     create: function(req,res){
+        console.log(req.body);
+        //var validatedBody = validateNewContact(req.body);
+
         res.redirect('/contacts/new');
 
         // TODO with inputs:
+        // - Check if contact exists already (via phone and email; any other unique identifiers?)
         // - Convert submitted name into first/last format (and potentially middle?; create function for this)
         // - Check for undefined values
         // - Tags: Replace any ", " with "," before separating into an array
@@ -73,3 +77,19 @@ module.exports = {
         //});
     }
 };
+
+function validateNewContact(body){
+    var bodyKeys = Object.keys(body),
+        validatedBody = bodyKeys.reduce(function(acc,key){
+            if(body[key] === ''){ // user didn't submit anything for this property
+                return acc;
+            }
+            acc[key] = body[key]; // set body property as corresponding property on obj we'll return
+
+        },{});
+    return validatedBody
+
+    //function propertyChecker(property, value){
+    //
+    //}
+}
