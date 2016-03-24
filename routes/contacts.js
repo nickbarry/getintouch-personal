@@ -54,8 +54,9 @@ module.exports = {
         res.render('contacts/new', null);
     },
     create: function(req,res){
-        console.log(req.body);
-        //var validatedBody = validateNewContact(req.body);
+        console.log('req.body: ',req.body);
+        var validatedBody = validateNewContact(req.body);
+        console.log('validatedBody: ',validatedBody);
 
         res.redirect('/contacts/new');
 
@@ -85,7 +86,7 @@ function validateNewContact(body){
                 return acc;
             }
             acc[key] = body[key]; // set body property as corresponding property on obj we'll return
-
+            return acc;
         },{});
     return validatedBody
 
