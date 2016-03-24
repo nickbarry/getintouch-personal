@@ -55,8 +55,8 @@ module.exports = {
     },
     create: function(req,res){
         console.log('req.body: ',req.body);
-        var processedBody = processNewContact(req.body);
-        console.log('processedBody: ',processedBody);
+        var body = processNewContact(req.body); // see note within deleteEmptyStringProps fn about the false appearance
+        // of proper functional Javascript. Should probably improve at some point. TODO.
         console.log('req.body: ',req.body);
 
         res.redirect('/contacts/new');
@@ -64,7 +64,8 @@ module.exports = {
         // TODO with inputs:
         // - Check if contact exists already (via phone and email; any other unique identifiers?)
         // - Convert submitted name into first/last format (and potentially middle?; create function for this)
-        // - Check for undefined values
+        // - Do validation for security purposes - encode any text I get, and prob use Hungarian notation to rename variables
+        //   to make it clear which ones are safe and which ones aren't
         // - Tags: Replace any ", " with "," before separating into an array
         // - Ultimately, I need to do some sort of encoding(??) to make sure no one submits malicious code
         // - I should do some front-end validation, too, for the benefit of the user
@@ -82,11 +83,14 @@ module.exports = {
 
 function processNewContact(body){
     var bodyKeys = Object.keys(body),
-        trimmedBody = bodyKeys.reduce(deleteEmptyStringProps,body);
-    //if(processedBody.nameFull){
-    //
-    //}
-    return trimmedBody;
+        body = bodyKeys.reduce(deleteEmptyStringProps,body);
+    if(body.nameFull){ // if they entered a name (it would be very unusual if they didn't...)
+        var names = namesFromFullName(body.nameFull);
+        body.nameFirst = names.nameFirst;
+        body.nameMiddle = names.namesMiddle;
+        body.nameLast = names.nameLast;
+    }
+    return body;
 
     //function propertyChecker(property, value){
     //
@@ -104,3 +108,28 @@ function deleteEmptyStringProps(obj,key){
     // fn?
 }
 
+function namesFromFullName(nameFull){
+    // TODO: Eventually, I should cover the case where someone enters a name in "Lastname, Firstname" format
+    var names = {nameFirst: undefined, nameMiddle:undefined, nameLast: undefined},
+        fullSplit = nameFull.split(' ');
+    switch(fullSplit.length){
+        case 0: // This shouldn't happen. If it does, leave all names undefined
+            break;
+        case 1: // User probably just entered a first name
+            names.nameFirst = fullSplit[0];
+            break;
+        case 2: // User almost certainly entered a first name and last name (hopefully not in "Lastname, Firstname" format)
+            names.nameFirst = fullSplit[0];
+            names.nameLast = fullSplit[1];
+            break;
+        default: // In the case of 3 names, user possibly entered a first, middle and last name. Or possibly entered
+            // someone with a two-word first or last name. In the case of 4+ names, who knows?
+            // Based on my own personal use, I can think of more people I know with two-word first names than last names (with spaces).
+            // And I don't plan on entering middle names. So I'll just treat cases like this as multiple-word first names,
+            // and let the user sort out what's going on if the service ever inserts more names than necessary as a greeting.
+            names.nameFirst = fullSplit.slice(0,fullSplit.length-1).join(" ");
+            names.nameLast = fullSplit[fullSplit.length-1];
+            break;
+    }
+    return names;
+}
