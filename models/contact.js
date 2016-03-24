@@ -9,13 +9,11 @@ function validateField(string){
 var contactSchema = mongoose.Schema({
     // I can generate dummy data from this template I put together:
     // http://beta.json-generator.com/4kzsToHpl
-    name: { // TODO: Maybe just have a single name string?
-        full: String, // This is what user enters when creating a contact; use this to guess First and Last (and
-        // sometimes Middle) names
-        first: String,
-        middle: String, // rare
-        last: String
-    },
+    nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
+    // sometimes Middle) names
+    nameFirst: String,
+    nameMiddle: String, // rare
+    nameLast: String,
     phone1: String,
     phoneOthers: {type: Array, default: []}, //TODO: Maybe store this as an Array? or just convert as necessary?
     email: String,
