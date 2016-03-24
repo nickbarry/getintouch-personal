@@ -15,7 +15,7 @@ var contactSchema = mongoose.Schema({
     nameMiddle: String, // rare
     nameLast: String,
     phone1: String,
-    phoneOthers: {type: Array, default: []}, //TODO: Maybe store this as an Array? or just convert as necessary?
+    phoneOthers: Array,
     email: String,
     near: String,
     notes: String,
