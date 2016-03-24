@@ -90,6 +90,18 @@ function processNewContact(body){
         body.nameMiddle = names.namesMiddle;
         body.nameLast = names.nameLast;
     }
+    if(body.phoneOthers) body.phoneOthers = commaDelimiter(body.phoneOthers);
+    if(body.tags) body.tags = commaDelimiter(body.tags); // TODO: Once I start using something like Select2, this may
+    // become unnecessary, since select2 may pass me an array, or something with strict delimitation
+    if(body.near) body.near = body.near.replace(/: /g, ':');    // Replace ': ' with just a colon
+    if(!body.contactFrequency) body.contactFrequency = 180;     // Set a default contactFrequency
+    if(body.lastContacted){
+        body.contactNext = new Date(body.lastContacted + ' 0:00:00 -0700'); // Create date, accounting for timezone. TODO: Make this variable based on user's timezone
+        body.lastContacted = new Date(body.lastContacted + ' 0:00:00 -0700'); // convert lastContacted to Date object
+        body.contactNext = body.contactNext.setHours(body.contactFrequency * 24); // Update contactNext per contactFrequency
+    }else{
+        body.contactNext = new Date(); // contact them today, if I don't know when I contacted them last!
+    }
     return body;
 
     //function propertyChecker(property, value){
@@ -132,4 +144,10 @@ function namesFromFullName(nameFull){
             break;
     }
     return names;
+}
+
+function commaDelimiter(str){
+    // This takes a comma-delimited string, where there may or may not be spaces after some commas, and splits
+    // it up into an array
+    return str.replace(/, +/g, ',').split(',');
 }

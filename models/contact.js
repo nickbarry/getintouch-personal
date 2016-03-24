@@ -11,21 +11,20 @@ var contactSchema = mongoose.Schema({
     // http://beta.json-generator.com/4kzsToHpl
     nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
     // sometimes Middle) names
-    // TODO: Split string into other name props
     nameFirst: String,
     nameMiddle: String, // rare
     nameLast: String,
     phone1: String,
-    phoneOthers: Array, // TODO: Split string into array
+    phoneOthers: Array,
     email: String,
-    near: String, // TODO: Remove spaces after colons
+    near: String,
     notes: String,
     lastContacted: Date,
     contactFrequency: {type: Number, default: 180}, // # days after which I should contact again
     contactNext: Date, // TODO: Should I replace this with a virtual property? Is there a
     // noticeable difference in the speed of searching for a lot of contacts according to
     // a real property, vs. a virtual property? I'll be searching for this property frequently
-    tags: Array, // TODO: Split string into array
+    tags: Array,
     priority: {type: Number, default: 3},
     isActive: {type: Boolean, default: true}
 });
