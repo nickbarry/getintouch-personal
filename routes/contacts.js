@@ -98,9 +98,10 @@ function processNewContact(body){
     if(body.lastContacted){
         body.contactNext = new Date(body.lastContacted + ' 0:00:00 -0700'); // Create date, accounting for timezone. TODO: Make this variable based on user's timezone
         body.lastContacted = new Date(body.lastContacted + ' 0:00:00 -0700'); // convert lastContacted to Date object
-        body.contactNext = body.contactNext.setHours(body.contactFrequency * 24); // Update contactNext per contactFrequency
+        body.contactNext.setHours(body.contactFrequency * 24); // Update contactNext per contactFrequency
     }else{
         body.contactNext = new Date(); // contact them today, if I don't know when I contacted them last!
+        body.contactNext.setHours(0,0,0,0); // set time to midnight
     }
     return body;
 
@@ -139,6 +140,7 @@ function namesFromFullName(nameFull){
             // Based on my own personal use, I can think of more people I know with two-word first names than last names (with spaces).
             // And I don't plan on entering middle names. So I'll just treat cases like this as multiple-word first names,
             // and let the user sort out what's going on if the service ever inserts more names than necessary as a greeting.
+            // TODO: If this is ever used for production, think more about whether/how I should derive middle names from full name.
             names.nameFirst = fullSplit.slice(0,fullSplit.length-1).join(" ");
             names.nameLast = fullSplit[fullSplit.length-1];
             break;
