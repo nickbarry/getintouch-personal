@@ -19,31 +19,16 @@ module.exports = {
         //    });
         //});
     },
-    //elyse: function(req,res,next){
-    //    var elyse = new Contact({
-    //        firstName: "Elyse",
-    //        lastName: "Green",
-    //        phone1: "1234567890",
-    //        email: "test@elyse.com",
-    //        address: "Candyland, USA",
-    //    });
-    //
-    //    elyse.save(function(err, elyse){
-    //        if(err) return console.error(err);
-    //        res.json({"full name": elyse.fullName()});
-    //    });
-    //},
-    //show: function(req,res,next){
-    //    var contact = new Contact(req.params.contact);
-    //
-    //    contact.exists(function (exists) {
-    //        if(!exists) {return res.send(404, 'Page Not found');}
-    //
-    //        res.send(contact); // TODO: I'm not sure this is right, or
-    //        // even will work. I transcribed this from the textbook's
-    //        // function focused on files, not contacts.
-    //    });
-    //},
+    show: function(req,res,next){
+        Contact.findById(req.params.id,function(err,result){
+            if(err) {throw err;} // TODO: Handle this better
+            if(result.length) { // If we found a matching contact
+                res.render('/contacts/contact', result); // Render contact page and send contact data
+            }else{ // Contact not found
+                res.send(404, 'Page Not found'); // TODO: Should render actual 404 template
+            }
+        });
+    },
     //destroy: function(req,res,next){
     //    var contact = new Contact(req.params.contact);
     //
@@ -57,7 +42,7 @@ module.exports = {
     showCreateNewForm: function(req,res){
         res.render('contacts/new', null);
     },
-    create: function(req,res){
+    create: function(req,res,next){
         console.log('req.body: ',req.body);
         var body = processNewContact(req.body); // TODO: see note within deleteEmptyStringProps fn about the false appearance
         // of proper functional Javascript. Should probably improve at some point.
@@ -77,6 +62,7 @@ module.exports = {
     }
 };
 
+// HOISTED FUNCTIONS
 function processNewContact(body){
     var bodyKeys = Object.keys(body),
         body = bodyKeys.reduce(deleteEmptyStringProps,body);

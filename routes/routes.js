@@ -9,7 +9,7 @@ var contacts = require('./contacts');
 
 router.get('/', /* main.requireUserAuth, */ contacts.index);
 router.get('/contacts/new', contacts.showCreateNewForm);
-//router.get('/contact/elyse', contacts.elyse);
+router.get('/contact/:id', contacts.show);
 // TODO: Should I be removing requireUserAuth from these
 // specific routes, and instead mounting the function as
 // middleware? No part of my website should (yet) be public.
