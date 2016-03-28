@@ -3,7 +3,11 @@ var dummyData = require('../dummyData.json');
 
 module.exports = {
     index: function(req,res,next){
-        res.render('index', dummyData);
+        Contact.find({},function(err,results){
+            if(err){throw err;} // TODO: Handle this better
+            res.render('index', results.concat(dummyData));
+        }); // Find all docs, no projection
+
 
         //Contact.getByPriority(function(err, contacts){
         //    if(err) {return next(err);}
