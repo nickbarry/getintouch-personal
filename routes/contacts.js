@@ -55,29 +55,23 @@ module.exports = {
     },
     create: function(req,res){
         console.log('req.body: ',req.body);
-        var body = processNewContact(req.body); // see note within deleteEmptyStringProps fn about the false appearance
-        // of proper functional Javascript. Should probably improve at some point. TODO.
+        var body = processNewContact(req.body); // TODO: see note within deleteEmptyStringProps fn about the false appearance
+        // of proper functional Javascript. Should probably improve at some point.
         console.log('req.body: ',req.body);
 
-        res.redirect('/contacts/new');
+        var contact = new Contact(req.body);
 
-        // TODO with inputs:
-        // - Check if contact exists already (via phone and email; any other unique identifiers?)
-        // - Convert submitted name into first/last format (and potentially middle?; create function for this)
-        // - Do validation for security purposes - encode any text I get, and prob use Hungarian notation to rename variables
-        //   to make it clear which ones are safe and which ones aren't
-        // - Tags: Replace any ", " with "," before separating into an array
-        // - Ultimately, I need to do some sort of encoding(??) to make sure no one submits malicious code
-        // - I should do some front-end validation, too, for the benefit of the user
+        contact.save(function (err) {
+            if(err){return next(err);}
 
-        //var contact = new Contact(req.params.contact);
-        //
-        //contact.save(function (err) {
-        //    if(err){return next(err);}
-        //
-        //    req.flash('info', 'Contact successfully created!');
-        //    res.redirect('/contact/' + contact.id); // TODO: need to create that property
-        //});
+            //req.flash('info', 'Contact successfully created!'); // TODO: Figure out how Flash works and start using it
+            //What happens after saving contact successfully: could redirect to that contact page; or could clear form
+            //and display an alert with a link to that contact
+
+            res.redirect('/contacts/new');
+        });
+
+        res.redirect('/contacts/new'); // TODO: Or should I clear the data and not need to do a page refresh?
     }
 };
 
@@ -104,10 +98,6 @@ function processNewContact(body){
         body.contactNext.setHours(0,0,0,0); // set time to midnight
     }
     return body;
-
-    //function propertyChecker(property, value){
-    //
-    //}
 }
 
 // TODO: I'll probably want to put the functions below in a utilities function module
