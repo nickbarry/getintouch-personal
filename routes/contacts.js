@@ -68,10 +68,8 @@ module.exports = {
             //What happens after saving contact successfully: could redirect to that contact page; or could clear form
             //and display an alert with a link to that contact
 
-            res.redirect('/contacts/new');
+            res.redirect('/contacts/new'); // TODO: Or should I clear the data and not need to do a page refresh?
         });
-
-        res.redirect('/contacts/new'); // TODO: Or should I clear the data and not need to do a page refresh?
     }
 };
 
