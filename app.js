@@ -1,5 +1,6 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var hbs = require('hbs');
 var morgan = require('morgan');
 var flash = require('connect-flash');
 var methodOverride = require('method-override');
@@ -27,6 +28,13 @@ app.engine('handlebars', exphbs.create({
     }
 }).engine);
 app.set('view engine', 'handlebars');
+
+// Trying with HBS rather than express-handlebars
+//app.set('view engine', 'handlebars');
+//app.engine('handlebars', require('hbs').__express);
+//app.set('views', __dirname + '/views');
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname, 'public', '/favicon.ico'));
