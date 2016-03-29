@@ -9,11 +9,17 @@
             <div class="panel-body">
                 <p>
                     {{phone1}}
-                    <!-- TODO: This bit of Handlebars ugliness should probably be replaced with some fancy css that adds a '/' divider between spans, excluding the first floated span -->
+                    <!-- TODO: This bit of Handlebars ugliness (below) should probably be replaced with some fancy css that adds a divider between spans, excluding the first floated span -->
                     {{#if email}}{{#if phone1}} / {{/if}}{{/if}}
                     <a href="mailto:{{email}}">{{email}}</a>
                 </p>
-                <p>Last Contacted: {{lastContacted}} <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
+                {{#if tags}}<p>
+                    Tags:
+                    {{#each tags}}
+                        {{this}}{{#unless @last}}, {{/unless}}<!-- I should implement the commas with css rather than through handlebars blocks, methinks -->
+                    {{/each}}
+                </p>{{/if}}
+                <p>{{#if lastContacted}}<span>Last Contacted: {{lastContacted}}{{/if}}</span> <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
                 <div class="hidden details">
                     <hr>
                     <p><strong>Notes:</strong> {{notes}}</p>
