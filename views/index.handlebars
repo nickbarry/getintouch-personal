@@ -7,7 +7,12 @@
                 <!-- TODO: Need to create Edit link functionality-->
             </h3></div>
             <div class="panel-body">
-                <p>{{phone1}} / <a href="mailto:{{email}}">{{email}}</a></p>
+                <p>
+                    {{phone1}}
+                    <!-- TODO: This bit of Handlebars ugliness should probably be replaced with some fancy css that adds a '/' divider between spans, excluding the first floated span -->
+                    {{#if email}}{{#if phone1}} / {{/if}}{{/if}}
+                    <a href="mailto:{{email}}">{{email}}</a>
+                </p>
                 <p>Last Contacted: {{lastContacted}} <span class="pull-right"><a class="show-hide-details" href="#">Show details</a></span></p>
                 <div class="hidden details">
                     <hr>
