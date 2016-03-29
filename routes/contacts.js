@@ -21,10 +21,10 @@ module.exports = {
     },
     show: function(req,res,next){
         Contact.findById(req.params.id,function(err,result){
-            console.log(result);
+            //console.log(result);
             if(err) {throw err;} // TODO: Handle this better
-            if(result.length) { // If we found a matching contact
-                res.render('/contacts/contact', result); // Render contact page and send contact data
+            if(result) { // If we found a matching contact
+                res.render('contacts/contact', result); // Render contact page and send contact data
             }else{ // Contact not found
                 res.status(404).send('Page Not found'); // TODO: Should render actual 404 template
             }
