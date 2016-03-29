@@ -6,6 +6,7 @@ var debug = require('debug')('express-generator-structure:server');
 var http = require('http');
 var config = require('../configUntracked');
 var db = require('../lib/db');
+// var dummyData = require('../dummyData.json');
 
 // Get port from environment and store in Express.
 var port = config.port;
@@ -13,6 +14,7 @@ app.set('port', port);
 
 // Set up database connection
 db.connect();
+// db.dataToDb(dummyData); // Insert a bunch of dummy data into the db
 
 // Create HTTP server.
 var server = http.createServer(app);
