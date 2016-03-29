@@ -5,7 +5,7 @@ module.exports = {
     index: function(req,res,next){
         Contact.find({},function(err,results){
             if(err){throw err;} // TODO: Handle this better
-            res.render('index', results.concat(dummyData));
+            res.render('index', results);
         }); // Find all docs, no projection
 
 
@@ -44,10 +44,8 @@ module.exports = {
         res.render('contacts/new', null);
     },
     create: function(req,res,next){
-        console.log('req.body: ',req.body);
         var body = processNewContact(req.body); // TODO: see note within deleteEmptyStringProps fn about the false appearance
         // of proper functional Javascript. Should probably improve at some point.
-        console.log('req.body: ',req.body);
 
         var contact = new Contact(req.body);
 
