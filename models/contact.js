@@ -9,8 +9,6 @@ function validateField(string){
 var contactSchema = mongoose.Schema({
     // I can generate dummy data from this template I put together:
     // http://beta.json-generator.com/4kzsToHpl
-    nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
-    // sometimes Middle) names
     nameFirst: String, // TODO: Validation/processing: should capitalize first name
     nameMiddle: String, // rare
     nameLast: String,
@@ -28,9 +26,7 @@ var contactSchema = mongoose.Schema({
     contactFrequency: {type: Number, default: 180}, // # days after which I should contact again
         // TODO: Validation/processing: Must be number >= 0. 0 means that I won't necessarily follow up with them. Or
         // maybe I should have a separate checkbox option below this field where the user can indicate no follow-up.
-    contactNext: Date, // TODO: Should I replace this with a virtual property? Is there a
-    // noticeable difference in the speed of searching for a lot of contacts according to
-    // a real property, vs. a virtual property? I'll be searching for this property frequently
+    contactNext: Date,
     // TODO: Validation/processing: date or number or string - something that can be converted to a date. Or maybe just be more strict.
     // I'm expecting a date string in a certain format from the input[type="date"] element, and if I don't get something in that format,
     // display an error. Or do some browsers not support that input type?
@@ -39,9 +35,71 @@ var contactSchema = mongoose.Schema({
     isActive: {type: Boolean, default: true} // TODO: Validation/processing: boolean
 });
 
-contactSchema.methods.fullName = function(){
-    return this.firstName + ' ' + this.lastName;
-};
+//nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
+    // sometimes Middle) names
+
+contactSchema.virtual('nameFull')
+    .get(function(){
+        return this.firstName + ' ' + this.lastName;
+    })
+    .set(function(name){
+        var first, last, // undefined
+            nameSlicePoint = name.indexOf(' ');
+        if(nameSlicePoint !== -1){ // User entered at least two names, i.e. there was a space in their entry
+            this.nameFirst = name.slice(0,nameSlicePoint);
+            this.nameLast = name.slice(nameSlicePoint+1);
+        }else{ // If no space, guess they entered contact's first name
+            this.nameFirst = name;
+        }
+    });
+
+contactSchema.virtual('tagString')
+    .get(function(){
+        return this.tags.join(', ');
+    })
+    .set(function(str){
+        this.tags = str.replace(/, +/g, ',').split(',');
+    });
+
+contactSchema.virtual('phoneOtherString')
+    .get(function(){
+        return this.phoneOthers.join(', ');
+    })
+    .set(function(str){
+        this.phoneOthers = str.replace(/, +/g, ',').split(',');
+    });
+
+contactSchema.virtual('lastContactedStr')
+    .get(function(){
+        return this.lastContacted.toDateString();
+    }); // No setter. The getter is used to display the date in human-readable format. I'm not expecting to pass a date back
+        // to MongoDB in this format.
+
+contactSchema.virtual('lastContactedInputStr')
+    .get(function(){
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            dateArr = this.lastContacted.toDateString().split(' '),
+            month = months.indexOf(dateArr[1]) + 1,
+            monthPad = month < 10
+                ? '0'
+                : '',
+            inputStr = dateArr[3] + '-' + monthPad + month + '-' + dateArr[2];
+        return inputStr;
+    })
+    .set(function(str){
+        this.lastContacted = new Date(str);
+    });
+
+/* VIRTUAL PROPERTY TEMPLATE
+contactSchema.virtual('VIRTUAL_PROPERTY_NAME')
+    .get(function(){
+        return WHATEVER_IT_RETURNS;
+    })
+    .set(function(NAME_OF_INPUT){
+        SET_APPROPRIATE_REAL_PROPERTIES;
+    });
+*/
+
 
 var Contact = mongoose.model('Contact', contactSchema);
 
