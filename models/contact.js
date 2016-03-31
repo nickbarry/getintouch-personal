@@ -23,7 +23,7 @@ var contactSchema = mongoose.Schema({
                          // Or maybe just be more strict. I'm expecting a date string in a certain format from the
                          // input[type="date"] element, and if I don't get something in that format, display an error.
                          // Or do some browsers not support that input type?
-    contactFrequency: {type: Number, default: 180}, // # days after which I should contact again
+    contactFrequency: {type: Number, min: 0}, // # days after which I should contact again
         // TODO: Validation/processing: Must be number >= 0. 0 means that I won't necessarily follow up with them. Or
         // maybe I should have a separate checkbox option below this field where the user can indicate no follow-up.
     contactNext: Date,
@@ -31,16 +31,17 @@ var contactSchema = mongoose.Schema({
     // I'm expecting a date string in a certain format from the input[type="date"] element, and if I don't get something in that format,
     // display an error. Or do some browsers not support that input type?
     tags: [String],
-    priority: {type: Number, default: 3}, // TODO: Validation/processing: number 0-5, inclusive
+    priority: {type: Number, default: 3, min: 0, max: 5}, // TODO: Validation/processing: number 0-5, inclusive
     isActive: {type: Boolean, default: true} // TODO: Validation/processing: boolean
 });
 
-//nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
-    // sometimes Middle) names
+contactSchema.set('toObject', { getters: true }); // Export virtual properties when I send an object to a view template
 
-contactSchema.virtual('nameFull')
+//nameFull: String,
+
+contactSchema.virtual('nameFull') // This is what user enters when creating a contact; use this to guess nameFirst and nameLast
     .get(function(){
-        return this.firstName + ' ' + this.lastName;
+        return this.nameFirst + ' ' + this.nameLast;
     })
     .set(function(name){
         var first, last, // undefined
@@ -71,7 +72,7 @@ contactSchema.virtual('phoneOtherString')
 
 contactSchema.virtual('lastContactedStr')
     .get(function(){
-        return this.lastContacted.toDateString();
+        return this.lastContacted.toDateString(); // Wed Jul 10 2016
     }); // No setter. The getter is used to display the date in human-readable format. I'm not expecting to pass a date back
         // to MongoDB in this format.
 
