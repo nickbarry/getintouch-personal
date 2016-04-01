@@ -1,7 +1,7 @@
 <h3>{{nameFull}}</h3> <!-- TODO: get rid of this separate line, and make the nameFull field below, in the form, larger. Model after Gmail Contacts -->
 
 <div class="panel-body form-horizontal" id="c-contact-details-form">
-    <form action="/contacts" method="post">
+    <form action="/contact/{{_id}}" method="post">
         <div class="form-group">
             <label for="nameFull" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
@@ -66,12 +66,14 @@
                 <p class="js-details-view">{{tagsString}}</p>
             </div>
         </div>
-        <div class="form-group">
+    </form>
+    <div class="container-fluid">
+        <div class="row">
             <div class="col-sm-offset-2 col-sm-10">
                 <button id="js-contact-update-button" class="hidden btn btn-primary js-edit-view">Save contact</button>
                 <button id="js-contact-update-cancel-button" class="hidden btn btn-danger js-edit-view pull-right">Cancel</button>
                 <button id="js-contact-edit-button" class="btn btn-primary js-details-view">Edit</button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
