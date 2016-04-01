@@ -1,104 +1,77 @@
-<h3>{{nameFull}}</h3>
+<h3>{{nameFull}}</h3> <!-- TODO: get rid of this separate line, and make the nameFull field below, in the form, larger. Model after Gmail Contacts -->
 
-<div class="panel-body form-horizontal">
+<div class="panel-body form-horizontal" id="c-contact-details-form">
     <form action="/contacts" method="post">
         <div class="form-group">
             <label for="nameFull" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="nameFull" name="nameFull" placeholder="Full name" value="{{nameFull}}">
+                <input type="text" class="form-control js-edit-view" id="nameFull" name="nameFull" placeholder="Full name" value="{{nameFull}}">
+                <p class="hidden js-details-view">{{nameFull}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{email}}">
+                <input type="email" class="form-control js-edit-view" id="email" name="email" placeholder="Email" value="{{email}}">
+                <p class="hidden js-details-view"><a href="mailto:{{email}}">{{email}}</a></p>
             </div>
         </div>
         <div class="form-group">
             <label for="phone1" class="col-sm-2 control-label">Phone</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="phone1" name="phone1" placeholder="Primary phone number" value="{{phone1}}">
+                <input type="text" class="form-control js-edit-view" id="phone1" name="phone1" placeholder="Primary phone number" value="{{phone1}}">
+                <p class="hidden js-details-view">{{phone1}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="near" class="col-sm-2 control-label">Near</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="near" name="near" placeholder="Location" value="{{near}}">
+                <input type="text" class="form-control js-edit-view" id="near" name="near" placeholder="Location" value="{{near}}">
+                <p class="hidden js-details-view">{{near}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="notes" class="col-sm-2 control-label">Notes</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="notes" name="notes" placeholder="Notes about contact" rows="3">{{notes}}</textarea>
+                <textarea class="form-control js-edit-view" id="notes" name="notes" placeholder="Notes about contact" rows="3">{{notes}}</textarea>
+                <p class="hidden js-details-view">{{notes}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="priority" class="col-sm-2 control-label">Priority</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="priority" name="priority" placeholder="Priority (lower is better), default 3" value="{{priority}}" min="0" max="5">
+                <input type="number" class="form-control js-edit-view" id="priority" name="priority" placeholder="Priority (lower is better), default 3" value="{{priority}}" min="0" max="5">
+                <p class="hidden js-details-view">{{priority}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="contactFrequency" class="col-sm-2 control-label">Contact frequency</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="contactFrequency" name="contactFrequency" placeholder="Number of days, default 180" value="{{contactFrequency}}" min="0">
+                <input type="number" class="form-control js-edit-view" id="contactFrequency" name="contactFrequency" placeholder="Number of days, default 180" value="{{contactFrequency}}" min="0">
+                <p class="hidden js-details-view">{{contactFrequency}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="lastContacted" class="col-sm-2 control-label">Last contacted</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="lastContacted" name="lastContacted" value="{{lastContactedInputStr}}"> <!-- TODO: Pass in appropriate data for value of this field -->
+                <input type="date" class="form-control js-edit-view" id="lastContacted" name="lastContacted" value="{{lastContactedInputStr}}"> <!-- TODO: Pass in appropriate data for value of this field -->
+                <p class="hidden js-details-view">{{lastContactedStr}}</p>
+                <p class="hidden js-details-view">{{contactNext}}</p> <!-- TODO: Make a human-readable string out of this via virtual property -->
             </div>
         </div>
         <div class="form-group">
             <label for="tagString" class="col-sm-2 control-label">Tags</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="tagString" name="tagString" placeholder="Tags, separated by commas" value="{{tagString}}">
+                <input type="text" class="form-control js-edit-view" id="tagString" name="tagString" placeholder="Tags, separated by commas" value="{{tagString}}">
+                <p class="hidden js-details-view">{{tagsString}}</p>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Create contact</button>
+                <button id="js-contact-update-button" class="btn btn-primary js-edit-view">Save contact</button>
+                <button id="js-contact-update-cancel-button" class="btn btn-danger js-edit-view pull-right">Cancel</button>
+                <button id="js-contact-edit-button" class="btn btn-primary js-details-view hidden">Edit</button>
             </div>
         </div>
     </form>
 </div>
-
-<p>{{phone1}} / <a href="mailto:{{email}}">{{email}}</a></p>
-<p>Last Contacted: {{lastContacted}}</p>
-<div class="details">
-    <hr>
-    <p><strong>Notes:</strong> {{notes}}</p>
-</div>
-
-
-<!--
-nameFull: String, // This is what user enters when creating a contact; use this to guess First and Last (and
-    // sometimes Middle) names
-    nameFirst: String, // TODO: Validation/processing: should capitalize first name
-    nameMiddle: String, // rare
-    nameLast: String,
-    phone1: String, // TODO: Validation/processing: Make sure it's 10+ digits
-    phoneOthers: [String], // TODO: Validation/processing: Make sure each is 10+ digits
-    email: String, // TODO: Validation/processing: proper email format
-    near: String,
-    notes: String,
-    lastContacted: Date, // This could be in the future, if the user wants to be able to record in advance an expected
-                         // upcoming contact
-                         // TODO: Validation/processing: Must be date, or date string, or something that can be converted to date.
-                         // Or maybe just be more strict. I'm expecting a date string in a certain format from the
-                         // input[type="date"] element, and if I don't get something in that format, display an error.
-                         // Or do some browsers not support that input type?
-    contactFrequency: {type: Number, default: 180}, // # days after which I should contact again
-        // TODO: Validation/processing: Must be number >= 0. 0 means that I won't necessarily follow up with them. Or
-        // maybe I should have a separate checkbox option below this field where the user can indicate no follow-up.
-    contactNext: Date, // TODO: Should I replace this with a virtual property? Is there a
-    // noticeable difference in the speed of searching for a lot of contacts according to
-    // a real property, vs. a virtual property? I'll be searching for this property frequently
-    // TODO: Validation/processing: date or number or string - something that can be converted to a date. Or maybe just be more strict.
-    // I'm expecting a date string in a certain format from the input[type="date"] element, and if I don't get something in that format,
-    // display an error. Or do some browsers not support that input type?
-    tags: [String],
-    priority: {type: Number, default: 3}, // TODO: Validation/processing: number 0-5, inclusive
-    isActive: {type: Boolean, default: true}
--->
