@@ -11,6 +11,9 @@ $(function(){ // on document ready
     }
 });
 
+// GENERAL-PURPOSE FUNCTIONS
+// I'll move functions below up into this section as I start using them on other pages
+
 // FUNCTIONS FOR PAGES DISPLAYING CONTACT CARDS ------------------------------------------------------------------------
 // Toggle the visibility of the Notes field
 function showOrHideDetails(event){
@@ -27,24 +30,25 @@ function showOrHideDetails(event){
 
 // CONTACT DETAILS PAGE FUNCTIONS --------------------------------------------------------------------------------------
 // Edit contact details
-function editContactDetails(event){
-    event.preventDefault(); // TODO: Get rid of these once I move buttons out of form, right?
+function editContactDetails(){
     toggleEditAndDetailViews();
     toggleEditUrl();
+    var formData = getDataFrom('detail');
+    console.log(formData);
 }
 
 // Cancel editing contact details
-function cancelEditContactDetails(event){
-    event.preventDefault();
+function cancelEditContactDetails(){
     toggleEditAndDetailViews();
     toggleEditUrl();
 }
 
 // Save details from contact form
-function saveContactDetails(event){
-    event.preventDefault();
+function saveContactDetails(){
     toggleEditAndDetailViews();
     toggleEditUrl();
+    var formData = getDataFrom('form');
+    console.log(formData);
 }
 
 // Toggle visibility of edit and view details
@@ -62,4 +66,30 @@ function toggleEditUrl(){
         urlArr[urlArr.length] = 'edit'; // Add 'edit' to the urlArr
         history.pushState(null, $('#js-nameFull').text() + ' - Edit', urlArr.join('/')); // TODO: Can I do a relative link that just goes up a directory, like '/..'?
     }
+}
+
+// Returns an object with data from the form on the page, or from the corresponding details view of the page
+function getDataFrom(source /* default: 'form' */){
+    var collection;
+    if('details' === source){
+        collection = $('form .js-details-view');
+    }else{ // source === 'form', or left blank
+        collection = $('form .js-edit-view');
+    }
+    return toArray(collection).reduce(getElNameAndValue, {});
+}
+
+// Returns a key/value pair from an element, in format [element name]: [element value or text]
+function getElNameAndValue(accumulator, el){
+    var $el = $(el);
+    accumulator[$el.attr('id')] =
+        true === $el.is('input, textarea, select') // If el is an input element...
+        ? $el.val()                              // ...get its val()...
+        : $el.text();                            // ...or get its text(). Assign to the appropriate accumulator property
+    return accumulator;
+}
+
+// Convert array-like object to array
+function toArray(arrayLikeObj){
+    return [].slice.call(arrayLikeObj);
 }
