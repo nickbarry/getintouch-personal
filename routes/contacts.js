@@ -3,6 +3,7 @@ var dummyData = require('../dummyData.json');
 
 module.exports = {
     index: function(req,res,next){
+        console.log('loading homepage');
         Contact.find({},function(err,results){
             if(err){throw err;} // TODO: Handle this better
             res.render('index', results);
@@ -29,16 +30,36 @@ module.exports = {
             }
         });
     },
-    //destroy: function(req,res,next){
-    //    var contact = new Contact(req.params.contact);
-    //
-    //    contact.delete(function (err) {
-    //        if(err){return next(err);}
-    //
-    //        req.flash('info', 'Contact successfully deleted!');
-    //        res.redirect('/');
-    //    });
-    //},
+    destroy: function(req,res,next){
+        //res.json({test: 'affirmative'});
+        //res.redirect(204,'http://localhost:3000');
+        Contact.findByIdAndRemove(req.params.id, function(err,doc){
+            if(err){return next(err);}
+            //console.log(doc);
+            //console.log(res.redirect.toString());
+            // req.flash('info', 'Contact successfully deleted!'); TODO: Figure out how Flash works and start using it
+
+            res.writeHead(204, {
+                Location: 'http://localhost:3000'
+            });
+            return res.end();
+
+            // THE BLOCKS BELOW, SEPARATED BY EMPTY LINES, ARE ALL ALTERNATIVES I'VE TRIED - ALL BUT ONE OF THE BLOCKS SHOULD BE COMMENTED OUT
+            // ALTERNATIVE 1: Use res.redirect to redirect to homepage. Isn't working.
+            //res.redirect(204,'http://localhost:3000'); // Not working. Have tried various path varients: '/', '..', '../..', '[another legitimate contact ID]', '/contacts/new', '../contacts/new', 'back'
+
+            // ALTERNATIVE 2: Try calling the index method to load the homepage
+            // I wrote the line below in an attempt to call the method that loads the homepage. It didn't seem to do anything. The index method never gets called.
+            //module.exports.index(req,res,next);
+
+            // ALTERNATIVE 3: Try manually doing what the index function does - find contacts and render the homepage. The console.log works, but no page is rendered.
+            //Contact.find({},function(err,results){
+            //    if(err){throw err;} // TODO: Handle this better
+            //    console.log('I found a ' + results.length + ' results after deleting the contact');
+            //    res.render('index', results);
+            //}); // Find all docs, no projection
+        });
+    },
     showCreateNewForm: function(req,res){
         res.render('contacts/new', null);
     },

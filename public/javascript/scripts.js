@@ -8,6 +8,7 @@ $(function(){ // on document ready
         $('#js-contact-edit-button').on('click',editContactDetails);
         $('#js-contact-update-button').on('click',saveContactDetails);
         $('#js-contact-update-cancel-button').on('click',cancelEditContactDetails);
+        $('#js-contact-delete-button').on('click',deleteContact);
     }
 });
 
@@ -54,6 +55,20 @@ function saveContactDetails(){
 // Toggle visibility of edit and view details
 function toggleEditAndDetailViews(){
     $('.js-details-view, .js-edit-view').toggleClass('hidden');
+}
+
+// Delete a contact from the database
+function deleteContact(){
+    var $del = $('#js-contact-delete-button');
+    //console.log('/contact/' + $del.data('contact-id'));
+    $.ajax('/contact/' + $del.data('contact-id'),{
+        method: 'DELETE'
+    }) // TODO: Fix this. I shouldn't rely on the DOM for important info. But I should probably just ignore this for now, since I likely won't have the same problem when I'm implementing Angular or React+Redux.
+        .fail(function(jqXHR, textStatus, errorThrown){
+            console.log(textStatus);
+            console.log(errorThrown);
+            // TODO: Put up an error message on the page
+        });
 }
 
 // Toggle '/edit' in current url, without reloading the page

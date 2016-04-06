@@ -79,7 +79,7 @@ contactSchema.virtual('lastContactedStr')
 contactSchema.virtual('lastContactedInputStr')
     .get(function(){
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-            dateArr = this.lastContacted.toDateString().split(' '),
+            dateArr = this.lastContacted.toDateString().split(' '),// TODO: this (and probably other lines) causes a problem if I visit the contact page of a contact with no lastContacted property
             month = months.indexOf(dateArr[1]) + 1,
             monthPad = month < 10
                 ? '0'

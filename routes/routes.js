@@ -9,7 +9,9 @@ var contacts = require('./contacts');
 
 router.get('/', /* main.requireUserAuth, */ contacts.index);
 router.get('/contacts/new', contacts.showCreateNewForm);
-router.get('/contact/:id', contacts.show);
+router.route('/contact/:id') // One specific contact
+    .get(contacts.show)
+    .delete(contacts.destroy);
 router.get('/contact/:id/edit', contacts.show);
 // TODO: Should I be removing requireUserAuth from these
 // specific routes, and instead mounting the function as
