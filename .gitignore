@@ -3,6 +3,7 @@ configUntracked.js
 
 # Workspace files
 .idea/workspace.xml
+.idea/shelf
 
 # Logs and databases #
 ######################
